@@ -1,0 +1,11 @@
+{:components   {:app  #var duct.component.handler/handler-component
+                :http #var ring.component.jetty/jetty-server}
+ :endpoints    {:site-endpoint #var download-via-xhrio-example.endpoint.site/site-endpoint}
+ :dependencies {:http [:app]
+                :app  [:site-endpoint]}
+ :config       {:app  {:middleware {:functions {:not-found #var duct.middleware.not-found/wrap-not-found
+                                                :resource #var ring.middleware.resource/wrap-resource}
+                                    :applied   [:resource :not-found]
+                                    :arguments {:resource  "download_via_xhrio_example/public"
+                                                :not-found "Resource not found."}}}
+                :http {:port http-port}}}
