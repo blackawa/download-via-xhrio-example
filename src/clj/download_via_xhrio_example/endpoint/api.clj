@@ -7,13 +7,23 @@
 (defn- fetch-text []
   (ring-response (io/file (io/resource "download_via_xhrio_example/download/plain-text.txt"))
                  {:headers {"Content-Type" "text/plain; charset=utf-8"}}))
-
-(defresource plain-text-resource []
+(defresource ^:private plain-text-resource []
   :allowed-methods [:get]
   :available-media-types ["*/*"]
   :handle-ok (fetch-text))
 
+(defn- fetch-image []
+  (ring-response (io/file (io/resource "download_via_xhrio_example/download/image.png"))
+                 {:headers {"Content-Type" "image/png"}}))
+(defresource ^:private image-resource []
+  :allowed-methods [:get]
+  :available-media-types ["*/*"]
+  :handle-ok (fetch-image))
+
+;; routes ------------------------------------------------------
+
 (defn api-endpoint [_]
   (routes
    (context "/api" _
-            (ANY "/download/plain-text" _ (plain-text-resource)))))
+            (ANY "/download/plain-text" _ (plain-text-resource))
+            (ANY "/download/image"      _ (image-resource)))))

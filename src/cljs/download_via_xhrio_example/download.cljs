@@ -17,7 +17,9 @@
            (fn [res] (send-pdf-to-browser res "plain-text.txt"))))
 
 (defn image []
-  (println "downloading image..."))
+  (request "http://localhost:3000/api/download/image"
+           :get
+           (fn [res] (send-pdf-to-browser res "image.png"))))
 
 (defn pdf []
   (println "downloading pdf..."))
