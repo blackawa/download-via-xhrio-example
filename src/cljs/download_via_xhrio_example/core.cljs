@@ -1,14 +1,28 @@
 (ns download-via-xhrio-example.core
-  (:require ))
+  (:require [download-via-xhrio-example.download :as download]))
 
 (enable-console-print!)
+;; comment in if you want to use app-state.
+;; (defonce app-state (atom {:text "Hello world!"}))
 
-(println "This text is printed from src/download-via-xhrio-example/core.cljs. Go ahead and edit it and see reloading in action.")
+(defn- add-event-listener [dom-id callback-fn]
+  (.addEventListener (js/document.getElementById dom-id)
+                     "click"
+                     callback-fn))
 
-(defonce app-state (atom {:text "Hello world!"}))
+(defn- remove-event-listener [dom-id callback-fn]
+  (.removeEventListener (js/document.getElementById dom-id)
+                        "click"
+                        callback-fn))
 
-(defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+;; (add-event-listener "plain-text" (download/plain-text)) とかではダメ.
+;; 関数が評価された結果が渡ってしまう.
+(add-event-listener "plain-text" download/plain-text)
+(add-event-listener "image" download/image)
+(add-event-listener "pdf" download/pdf)
+
+;; remove event listener before reload js ----------------
+(defn before-js-reload []
+  (remove-event-listener "plain-text" download/plain-text)
+  (remove-event-listener "image" download/image)
+  (remove-event-listener "pdf" download/pdf))

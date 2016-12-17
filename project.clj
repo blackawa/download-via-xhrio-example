@@ -11,6 +11,9 @@
                  [environ "1.1.0"]
                  [ring "1.5.0"]
                  [ring-jetty-component "0.3.1"]
+                 [hiccup "1.0.5"]
+                 [garden "1.3.2"]
+                 [liberator "0.13"]
                  [org.clojure/clojurescript "1.9.229"]
                  [org.clojure/core.async "0.2.391"
                   :exclusions [org.clojure/tools.reader]]]

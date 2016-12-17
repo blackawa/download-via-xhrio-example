@@ -1,8 +1,9 @@
 {:components   {:app  #var duct.component.handler/handler-component
                 :http #var ring.component.jetty/jetty-server}
- :endpoints    {:site-endpoint #var download-via-xhrio-example.endpoint.site/site-endpoint}
+ :endpoints    {:site-endpoint #var download-via-xhrio-example.endpoint.site/site-endpoint
+                :api-endpoint #var download-via-xhrio-example.endpoint.api/api-endpoint}
  :dependencies {:http [:app]
-                :app  [:site-endpoint]}
+                :app  [:site-endpoint :api-endpoint]}
  :config       {:app  {:middleware {:functions {:not-found #var duct.middleware.not-found/wrap-not-found
                                                 :resource #var ring.middleware.resource/wrap-resource}
                                     :applied   [:resource :not-found]
