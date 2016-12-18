@@ -1,8 +1,6 @@
 (ns user)
 
-(defn dev
-  "Load and switch to the 'dev' namespace."
-  []
+(defn dev []
   (require 'dev)
   (in-ns 'dev)
   :loaded)

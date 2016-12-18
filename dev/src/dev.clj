@@ -9,7 +9,6 @@
             [duct.util.repl :refer [setup test migrate rollback]]
             [duct.util.system :refer [load-system]]
             [reloaded.repl :refer [system init start stop go reset]]
-            ;; for figwheel
             [figwheel-sidecar.repl-api :as f]))
 
 (defn new-system []

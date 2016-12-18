@@ -20,10 +20,19 @@
   :available-media-types ["*/*"]
   :handle-ok (fetch-image))
 
+(defn- fetch-pdf []
+  (ring-response (io/file (io/resource "download_via_xhrio_example/download/google.pdf"))
+                 {:headers {"Content-Type" "application/pdf"}}))
+(defresource ^:private pdf-resource []
+  :allowed-methods [:get]
+  :available-media-types ["*/*"]
+  :handle-ok (fetch-pdf))
+
 ;; routes ------------------------------------------------------
 
 (defn api-endpoint [_]
   (routes
    (context "/api" _
             (ANY "/download/plain-text" _ (plain-text-resource))
-            (ANY "/download/image"      _ (image-resource)))))
+            (ANY "/download/image"      _ (image-resource))
+            (ANY "/download/pdf"        _ (pdf-resource)))))

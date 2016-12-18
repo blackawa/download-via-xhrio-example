@@ -2,8 +2,6 @@
   (:require [download-via-xhrio-example.download :as download]))
 
 (enable-console-print!)
-;; comment in if you want to use app-state.
-;; (defonce app-state (atom {:text "Hello world!"}))
 
 (defn- add-event-listener [dom-id callback-fn]
   (.addEventListener (js/document.getElementById dom-id)
@@ -15,8 +13,6 @@
                         "click"
                         callback-fn))
 
-;; (add-event-listener "plain-text" (download/plain-text)) とかではダメ.
-;; 関数が評価された結果が渡ってしまう.
 (add-event-listener "plain-text" download/plain-text)
 (add-event-listener "image" download/image)
 (add-event-listener "pdf" download/pdf)
